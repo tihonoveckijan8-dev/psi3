@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Панель психолога · Аналитика</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Основной CSS (адаптирован) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="blue">
+<div class="glass-panel">
+  <div class="app-header">
+    <div class="logo-area">
+      <h1><i class="fas fa-user-md" style="margin-right: 10px;"></i>Панель психолога</h1>
+      <span>мониторинг эмоционального состояния · живое стекло</span>
+    </div>
+    <div>
+      <div class="settings-btn" id="refreshBtn" title="Обновить данные">
+        <i class="fas fa-sync-alt"></i>
+      </div>
+    </div>
+  </div>
+  <div id="dynamicContent">
+    <!-- Загрузка -->
+    <div class="glass-card" style="text-align:center; padding:40px;">
+      <i class="fas fa-spinner fa-pulse fa-2x"></i>
+      <p style="margin-top:16px;">Загрузка данных из Firebase...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно для деталей (опционально) -->
+<div id="detailsModal" style="display: none;"></div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // Ваш конфиг Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA5f_F_WHuZq7HICvlwgZMyDj5T_WgaErE",
+    authDomain: "psitest-100e7.firebaseapp.com",
+    projectId: "psitest-100e7",
+    storageBucket: "psitest-100e7.firebasestorage.app",
+    messagingSenderId: "896818985599",
+    appId: "1:896818985599:web:74bccb8c8b07e62f04dd4a",
+    measurementId: "G-3676BCQN3N"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Делаем доступным для основного скрипта
+  window.firebaseDB = db;
+  window.firebaseGetDocs = getDocs;
+  window.firebaseCollection = collection;
+  window.firebaseQuery = query;
+  window.firebaseOrderBy = orderBy;
+</script>
+<script type="module" src="script.js"></script>
+</body>
+</html>
